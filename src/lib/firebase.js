@@ -147,13 +147,16 @@ export async function getAllEntries() {
 	if (!auth.currentUser) {
 		throw new Error('Cannot get posts without signing in first.');
 	}
-	const q = query(collection(db, 'users', auth.currentUser.uid, 'entries'), orderBy('date', 'desc'));
+	const q = query(
+		collection(db, 'users', auth.currentUser.uid, 'entries'),
+		orderBy('date', 'desc')
+	);
 	const snap = await getDocs(q);
 	let datemap = new Map();
 	snap.forEach((doc) => {
 		const date = doc.data.date;
 		const slug = DateTime.fromJSDate(date, { zone: 'utc' }).toISODate();
 		datemap[slug] = doc.data;
-	})
+	});
 	return datemap;
 }

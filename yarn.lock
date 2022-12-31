@@ -1934,6 +1934,7 @@ __metadata:
     eslint-config-prettier: ^8.5.0
     eslint-plugin-svelte3: ^4.0.0
     firebase: ^9.15.0
+    luxon: ^3.2.0
     postcss: ^8.4.20
     prettier: ^2.8.0
     prettier-plugin-svelte: ^2.8.1
@@ -2954,6 +2955,13 @@ __metadata:
   version: 7.14.1
   resolution: "lru-cache@npm:7.14.1"
   checksum: d72c6713c6a6d86836a7a6523b3f1ac6764768cca47ec99341c3e76db06aacd4764620e5e2cda719a36848785a52a70e531822dc2b33fb071fa709683746c104
+  languageName: node
+  linkType: hard
+
+"luxon@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "luxon@npm:3.2.0"
+  checksum: 9a54fc68f1735259095299616c7d01967fb52a9c3500c6b31f97c477574122c62dc0f119d13abc04daaf545e1b8f37a63642b45cd04a240ff59987ceb6ec02c0
   languageName: node
   linkType: hard
 

@@ -30,6 +30,7 @@
 		"@milkdown/preset-commonmark": "^6.5.4",
 		"@milkdown/prose": "^6.5.4",
 		"@milkdown/theme-nord": "^6.5.4",
-		"firebase": "^9.15.0"
+		"firebase": "^9.15.0",
+		"luxon": "^3.2.0"
 	}
 }

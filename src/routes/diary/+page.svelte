@@ -15,6 +15,6 @@
 	}
 </script>
 
-<div use:editor />
+<div class="h-screen" use:editor />
 
 <style></style>

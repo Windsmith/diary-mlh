@@ -1,4 +1,5 @@
 <script>
+	export let data;
 	let curDate = new Date();
 </script>
 

@@ -1,8 +1,13 @@
 import { redirect } from "@sveltejs/kit";
-import { auth } from "../../../lib/firebase";
+import { auth, userStore } from "../../../lib/firebase";
 
 export async function load({ params, parent }) {
-	if (!auth.currentUser) {
+	let user = null;
+	userStore.subscribe((value) => {
+		user = value;
+	})
+	console.log(`in slug page js, user is ${auth.currentUser}`);
+	if (!user) {
 		throw redirect(307, '/');
 	}
 	let { entries } = await parent();

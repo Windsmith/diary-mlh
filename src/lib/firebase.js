@@ -41,6 +41,7 @@ export const db = getFirestore();
 // set user store on auth state changes
 export const userStore = readable(null, (set) => {
 	onAuthStateChanged(auth, (user) => {
+		console.log(`user logged in ${user}`);
 		if (user) {
 			set(user);
 		} else {
@@ -81,7 +82,8 @@ export async function createUserGoogleSignIn() {
 
 export async function signInEmail(email, pw) {
 	// Signs an existing user in with email and password.
-	await signInWithEmailAndPassword(auth, email, pw);
+	let cred = await signInWithEmailAndPassword(auth, email, pw);
+	console.log(cred.user);
 }
 
 export async function signInGmail() {

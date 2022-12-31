@@ -8,6 +8,7 @@
 		Editor.make()
 			.config((ctx) => {
 				ctx.set(rootCtx, dom);
+				ctx.set(defaultValueCtx, '# Start writing!');
 			})
 			.use(nord)
 			.use(commonmark)
@@ -15,6 +16,9 @@
 	}
 </script>
 
-<div class="h-screen" use:editor />
+<div class="h-screen bg-nord0 p-4">
+	<div class="bg-nord4 mr-44 rounded-lg p-2">21 December 2022</div>
+	<div use:editor class="border-x-2 border-x-nord2 rounded mt-6" />
+</div>
 
 <style></style>

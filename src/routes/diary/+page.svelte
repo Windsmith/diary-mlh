@@ -16,8 +16,8 @@
 	}
 </script>
 
-<div class="h-screen bg-nord0 p-4">
-	<div class="bg-nord4 mr-44 rounded-lg p-2">21 December 2022</div>
+<div class="h-screen bg-nord0 p-4 sm:p-8 md:p-16">
+	<div class="bg-nord4 max-w-fit rounded-lg p-2 sm:text-xl md:text-2xl">21 December 2022</div>
 	<div use:editor class="border-x-2 border-x-nord2 rounded mt-6" />
 </div>
 

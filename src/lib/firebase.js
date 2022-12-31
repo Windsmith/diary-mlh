@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, collection, setDoc, getFirestore, Timestamp } from 'firebase/firestore';
 import { readable } from 'svelte/store';
 import { DateTime } from 'luxon';
@@ -32,32 +32,39 @@ export const userStore = readable(null, (set) => {
 export async function createUserEmailPw(name, email, pw) {
     // Create a user on Firebase Auth with email and password, then add
     // their details to our database.
-    // This function returns a string (error message) if an error occurs, else returns null.
-    try {
-        const credential = await createUserWithEmailAndPassword(auth, email, pw);
-        const ref = doc(db, "users", credential.user.uid);
-        await setDoc(ref, {
-            name: name,
-            createdAt: Timestamp.fromDate(DateTime.now().setZone('utc').toJSDate())
-        });
-    } catch (err) {
-        return err.message;
-    }
+    const credential = await createUserWithEmailAndPassword(auth, email, pw);
+    const ref = doc(db, "users", credential.user.uid);
+    await setDoc(ref, {
+        name: name,
+        createdAt: Timestamp.fromDate(DateTime.now().setZone('utc').toJSDate())
+    });
 }
 
 export async function createUserGoogleSignIn() {
     // Create a user on Firebase Auth with Gmail sign-up, and add their
     // details to our database.
-    // This function returns a string (error message) if an error occurs, else returns null.
-    try {
-        const provider = new GoogleAuthProvider();
-        const credential = await signInWithPopup(auth, provider);
-        const red = doc(db, "users", credential.user.uid);
-        await setDoc(ref, {
-            name: credential.user.displayName,
-            createdAt: Timestamp.fromDate(DateTime.now().setZone('utc').toJSDate())
-        });
-    } catch (err) {
-        return err.message;
-    }
+    const provider = new GoogleAuthProvider();
+    const credential = await signInWithPopup(auth, provider);
+    const ref = doc(db, "users", credential.user.uid);
+    await setDoc(ref, {
+        name: credential.user.displayName,
+        createdAt: Timestamp.fromDate(DateTime.now().setZone('utc').toJSDate())
+    }, { merge: true });
+
+}
+
+export async function signInEmail(email, pw) {
+    // Signs an existing user in with email and password.
+    await signInWithEmailAndPassword(auth, email, pw);
+}
+
+export async function signInGmail() {
+    // Signs an existing user in with Gmail auth.
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+}
+
+export async function signOutUser() {
+    // Signs out the current user.
+    await signOut(auth);
 }

@@ -1939,6 +1939,7 @@ __metadata:
     prettier: ^2.8.0
     prettier-plugin-svelte: ^2.8.1
     svelte: ^3.54.0
+    tailwind-nord: ^1.2.0
     tailwindcss: ^3.2.4
     vite: ^4.0.0
   languageName: unknown
@@ -4416,6 +4417,13 @@ __metadata:
   version: 3.55.0
   resolution: "svelte@npm:3.55.0"
   checksum: 0b182973a4152fec8baa59cc168ca4528d63faba130bc83063a7d55d1732a81303b48745f4bffe53436b875b9c98960b0265d45473e5b3d25c77b116fdc274f0
+  languageName: node
+  linkType: hard
+
+"tailwind-nord@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "tailwind-nord@npm:1.2.0"
+  checksum: 145a169d6b2433005f0c0477f42b467ebf52b54af987caac8cdb72de4d0cea8dac2c10717cd92a736abc87b41217255dbe531a79b4ef803e32c603007ff2d31e
   languageName: node
   linkType: hard
 

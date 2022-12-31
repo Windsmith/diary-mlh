@@ -154,9 +154,9 @@ export async function getAllEntries() {
 	const snap = await getDocs(q);
 	let datemap = new Map();
 	snap.forEach((doc) => {
-		const date = doc.data.date;
-		const slug = DateTime.fromJSDate(date, { zone: 'utc' }).toISODate();
-		datemap[slug] = doc.data;
+		const date = doc.data().date;
+		const slug = DateTime.fromSeconds(date.seconds, { zone: 'utc' }).toISODate();
+		datemap[slug] = doc.data();
 	});
 	return datemap;
 }

@@ -1,0 +1,174 @@
+.nav {
+    height: 5em;
+    font-size: 2rem;
+}
+
+:root {
+    --colour1:rgb(38, 38, 38);
+    --colour2: #23875c;
+    --colour3: #d2a94b;
+    --colour4: #bf0603;
+    --colour5: #8d0801;
+    --cell-size: 8vh;
+    --sudoku-border-colour: black;
+    --sudoku-border-size: 4px
+}
+  
+body {
+margin: 0;
+padding: 0;
+height: 100%;
+color: var(--colour3);
+font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.body  {
+background: rgb(38, 38, 38);
+}
+
+.header {
+font-size: 6vh;
+height: 12vh;
+width: 100%;
+/*height: 10vh;*/
+background-color: var(--colour5);
+display: flex;
+justify-content: space-between;
+}
+
+.header > div {
+width: 50%;
+z-index: 5;
+/*background-color: rgba(255, 255, 255, 0.5);*/
+}
+
+#right {
+font-size: 4vh;
+text-align: right;
+display: block;
+height: 12vh;
+display: flex;
+justify-content: right;
+}
+
+#right > a, #LO{
+font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+padding: 3.7vh 1vh 0 1vh;
+margin: 0;
+display: block;
+text-decoration: none;
+color: var(--colour2);
+transition: background-color 150ms ease-in-out;
+}
+
+#LO {
+background: transparent;
+font-size: 4vh;
+width: auto;
+padding: 0 1vh 0 1vh;
+margin: 0;
+height: 100%;
+border-radius: 0;
+}
+
+#right > a:link {
+background-color: rgba(255, 255, 255, 0);
+}
+
+#right > a:hover, #LO:hover {
+background-color: rgba(0,0,0,0.1);
+}
+
+#left {
+padding: 2vh 0 2vh 0.5em;
+}
+
+.loginsignup {
+background-color: rgba(0,0,0,0.2);
+position: absolute;
+width: 100%;
+height: 100vh;
+justify-content: center;
+}
+
+.popup {
+margin: 20vh;
+z-index: 50;
+background-color: rgb(37, 37, 37);
+border-radius: 20px;
+overflow: hidden;
+width: 50vw;
+box-shadow: 0px 0 10px 5px rgba(0, 0, 0, 0.3);
+}
+
+.form-div {
+z-index: 100;
+width: 45%;
+background-color: rgb(79, 79, 79);
+height: 100%;
+transition: all 200ms ease-out;
+}
+
+.form-div > form {
+font-size: 4vh;
+width: 100%;
+padding: 1em 0 0 0;
+text-align: left;
+transition: opacity 200ms 200ms linear;
+}
+
+form > label {
+text-align: left;
+font-size: 3vh;
+}
+
+form > input {
+border: 0;
+font-size: 2vh;
+padding: 5px;
+width: 15em;
+border-radius: 5px;
+}
+
+#password-log {
+width: 13em;
+border-radius: 5px 0 0 5px;
+}
+
+.eye {
+background-color:#160505;
+width: 2em;
+border-radius: 0 5px 5px 0;
+font-size: 2vh;
+padding: 5px;
+}
+
+form > a {
+font-size: 2vh;
+text-decoration: none;
+color: var(--colour2);
+cursor: pointer;
+}
+
+.grid-div {
+height: 100%;
+top: 50%;
+flex: 3;
+margin: auto 0;
+padding: auto 0;
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.blurred {
+filter: blur(8px);
+}
+
+.body {
+height: 88vh;
+background-color: var(--colour1);
+display: flex;
+flex-direction: row;
+}

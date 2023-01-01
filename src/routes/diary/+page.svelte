@@ -1,8 +1,10 @@
 <script>
+  import Navbar from "../../components/navbar.svelte";
 	export let data;
 	let curDate = new Date();
 </script>
 
+<Navbar />
 <div class="bg-nord0 h-screen p-4 sm:p-6">
 	<input
 		placeholder="Enter date to filter"

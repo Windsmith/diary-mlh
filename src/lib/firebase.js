@@ -16,7 +16,6 @@ import {
 	updateDoc,
 	serverTimestamp,
 	deleteDoc,
-	getDoc,
 	getDocs,
 	collection,
 	query,

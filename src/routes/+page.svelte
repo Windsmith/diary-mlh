@@ -4,14 +4,23 @@
 
 <div class="flex flex-col justify-between h-screen">
 	<Navbar />
-	<h1 class="text-7xl">Welcome to SvelteKit</h1>
-	<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+
+	<div class="flex flex-row justify-around p-10">
+		<div>
+			<img alt="GIF" />
+			<div class="drop-shadow p-4 italic text-xs">Have you ever</div>
+		</div>
+		<div>
+			<img alt="GIF" />
+			<div class="drop-shadow p-4  italic text-xs">Have you ever</div>
+		</div>
+	</div>
 
 	<footer class="text-center text-white" style="background-color: #0a4275;">
 		<div class="container p-6">
 			<div class="">
 				<div class="space-y-2">
-					<div class="text-xl">Register for free</div>
+					<div class="text-xl">What are you waiting for? <br /> Register for free</div>
 					<button
 						type="button"
 						class="inline-block px-6 py-2 border-2 border-white text-white font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"

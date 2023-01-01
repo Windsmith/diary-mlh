@@ -67,7 +67,7 @@ justify-content: right;
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
-    padding: 3.7vh 1vh 0 1vh;
+    padding: 3.7vh 2vh 0 2vh;
     margin: 0;
     display: block;
     text-decoration: none;
@@ -75,11 +75,27 @@ justify-content: right;
     transition: background-color 150ms ease-in-out;
 }
 
-#right > a:link {
+/* #right > a:link {
     background-color: rgba(255, 255, 255, 0);
-}
+} */
 
 #right > a:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+#user{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    padding: 3.7vh 2vh 0 2vh;
+    margin: 0;
+    display: block;
+    text-decoration: none;
+    color: var(--nord15);
+    transition: background-color 150ms ease-in-out;
+}
+
+#user:hover {
     background-color: rgba(0,0,0,0.1);
 }
 

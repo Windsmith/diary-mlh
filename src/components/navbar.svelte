@@ -2,7 +2,7 @@
     import { text } from "svelte/internal";
     import "../landingpage.css";
 
-    let logged = false;
+    let logged = true;
     let popup = false;
     let sign = false;
 
@@ -10,6 +10,7 @@
     let textType = "password";
 
     
+
     function formUpdate() {
         if (sign) {
             formHolder.margin = "50%";

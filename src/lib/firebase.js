@@ -3,7 +3,6 @@ import {
 	getAuth,
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
-	onAuthStateChanged,
 	signInWithPopup,
 	signInWithEmailAndPassword,
 	signOut
@@ -11,13 +10,13 @@ import {
 import {
 	doc,
 	setDoc,
+	getDoc,
 	getFirestore,
 	Timestamp,
 	updateDoc,
 	serverTimestamp,
 	deleteDoc
 } from 'firebase/firestore';
-import { readable } from 'svelte/store';
 import { DateTime } from 'luxon';
 
 const firebaseConfig = {
@@ -33,19 +32,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
 
-// set user store on auth state changes
-export const userStore = readable(null, (set) => {
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			set(user);
-		} else {
-			set(null);
-		}
-	});
-	return function stop() {
-		set(null);
-	};
-});
 
 export async function createUserEmailPw(name, email, pw) {
 	// Create a user on Firebase Auth with email and password, then add
@@ -123,4 +109,13 @@ export async function deleteEntry(date) {
 	}
 	const ref = doc(db, 'users', auth.currentUser.uid, 'entries', date);
 	await deleteDoc(ref);
+}
+
+export async function getUsername() {
+	if (!auth.currentUser) {
+		throw new Error('User not signed in');
+	}
+	let ref = doc(db, "users", auth.currentUser.uid);
+	let data = await getDoc(ref);
+	return data.get("name");
 }

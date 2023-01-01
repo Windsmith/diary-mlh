@@ -1,25 +1,34 @@
 <script>
-    import { userStore } from "../lib/firebase";
+    import { onMount } from "svelte";
+    import { getUsername } from "../lib/firebase";
+    import { getAuth, onAuthStateChanged } from "firebase/auth";
 
     import "../landingpage.css";
+    const auth = getAuth();
+    let logged;
 
-    let logged = false;
-    let displayName = "User"; // dummy
-    userStore.subscribe((val) => {
-        if (!val) {
-            logged = false;
-        } else {
-            logged = true;
-            displayName = val.displayName;
-        }
-    })
+    onMount(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                logged = true;
+            } else {
+                logged = false;
+            }
+        })
+    });
     let popup = false;
     let sign = false;
 
     let showPW = false;
     let textType = "password";
 
-    
+    async function fetchUsername() {
+        if (auth.currentUser.displayName) {
+            return auth.currentUser.displayName;
+        } else {
+            return await getUsername();
+        }
+    }    
 
     function formUpdate() {
         if (sign) {
@@ -71,7 +80,11 @@
         <a id="login" on:click={() => {sign = false; viewPopup();}} href="#">Log In</a>
         <a id="signup" on:click={() => {sign = true; viewPopup();}} href="#">Sign Up</a>
         {:else}
-        <div id="user">{displayName}</div>
+        {#await fetchUsername()}
+        <div id="user">fetching..</div>
+        {:then uname}
+        <div id="user">{uname}</div>
+        {/await}
         {/if}
         {#if popup}
         <div on:click={() => {popup = false}} class="loginsignup">

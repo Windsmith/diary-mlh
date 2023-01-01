@@ -1,8 +1,18 @@
 <script>
-    import { text } from "svelte/internal";
+    import { userStore } from "../lib/firebase";
+
     import "../landingpage.css";
 
-    let logged = true;
+    let logged = false;
+    let displayName = "User"; // dummy
+    userStore.subscribe((val) => {
+        if (!val) {
+            logged = false;
+        } else {
+            logged = true;
+            displayName = val.displayName;
+        }
+    })
     let popup = false;
     let sign = false;
 
@@ -61,17 +71,17 @@
         <a id="login" on:click={() => {sign = false; viewPopup();}} href="#">Log In</a>
         <a id="signup" on:click={() => {sign = true; viewPopup();}} href="#">Sign Up</a>
         {:else}
-        <div id="user">User</div>
+        <div id="user">{displayName}</div>
         {/if}
         {#if popup}
         <div on:click={() => {popup = false}} class="loginsignup">
             <div on:click={(e) => {e.stopPropagation()}} class="popup">
                 <div class="form-div" style="margin: 0 0 0 {formHolder.margin};">
                     {#if !sign}
-                    <form class="loginForm" action=""
+                    <form class="loginForm" action="/login"
                      method="POST" style="opacity: {formHolder.loginOpacity};">
                         Log In<br><br>
-                        <input class="txt" type="text" placeholder="E-mail" id="email-log" name="email"><br>
+                        <input class="txt" type="email" placeholder="E-mail" id="email-log" name="email"><br>
                         <input class="txt" type={textType} placeholder="Password" id="password-log" name="password"><a on:click={() => {showPW = !showPW; setType()}} class="eye" href="#"><img class="eyeimg" src="eye.svg" alt="idk"></a><br>
                         <a id="toSign" on:click={() => {sign = showPW = true; formUpdate()}}>Don't have an account? Sign up.</a><br>
                         <input type="submit" name="submit-l" value="Log In">
@@ -79,11 +89,11 @@
                         <button class="googlelog" type="submit"><div class="gglbtn"><img class="google" src="google.svg" alt="idk"> Log In with Google</div></button>
                     </form>
                     {:else}
-                    <form class="signupForm" action=""
+                    <form class="signupForm" action="/signup"
                      method="POST" style="opacity: {formHolder.signupOpacity};">
                         Sign Up <br>
                         <input class="txt" type="text" placeholder="Name" id="name-sign" name="name"><br>
-                        <input class="txt" type="text" placeholder="E-mail" id="username-email" name="email"><br>
+                        <input class="txt" type="email" placeholder="E-mail" id="username-email" name="email"><br>
                         <input class="txt" type={textType} placeholder="Password" id="password-sign" name="password"><a on:click={() => {showPW = !showPW; setType()}} class="eye" href="#"><img class="eyeimg" src="eye.svg" alt="idk"></a><br>
                         <input class="txt" type="password" placeholder="Re-type Password" id="repassword-sign" name="re-password"><br>
                         <a id="toLog" on:click={() => {sign = false; showPW = true; formUpdate();}}>Have an account? Log in.</a><br>

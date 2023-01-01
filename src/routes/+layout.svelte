@@ -2,4 +2,4 @@
 	import '../app.css';
 </script>
 
-<slot />
+<slot class="flex flex-col justify-between" />

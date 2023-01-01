@@ -1,18 +1,37 @@
 <script>
     import { text } from "svelte/internal";
-import "../landingpage.css";
+    import "../landingpage.css";
 
     let logged = false;
     let popup = false;
     let sign = false;
 
     let showPW = false;
-
     let textType = "password";
+
+    
+    function formUpdate() {
+        if (sign) {
+            formHolder.margin = "50%";
+            formHolder.loginOpacity = "0%";
+            formHolder.signupOpacity = "100%";
+        } else {
+            formHolder.margin = "0%";
+            formHolder.loginOpacity = "100%";
+            formHolder.signupOpacity = "0%";
+        }
+    }
 
     function viewPopup() {
         popup = !popup;
+        formUpdate();
     }
+
+    let formHolder = {
+        margin: "0%",
+        signupOpacity: "0%",
+        loginOpacity: "100%"
+    };
 
     function closeOnEsc(e) {
         if (e.key === 'Escape') {
@@ -32,7 +51,6 @@ import "../landingpage.css";
 
 
 
-
 </script>
 
 <div class="header" on:keydown={closeOnEsc}>
@@ -47,28 +65,30 @@ import "../landingpage.css";
         {#if popup}
         <div on:click={() => {popup = false}} class="loginsignup">
             <div on:click={(e) => {e.stopPropagation()}} class="popup">
-                <div class="form-div" style="margin: 0 0 0 0%;">
+                <div class="form-div" style="margin: 0 0 0 {formHolder.margin};">
                     {#if !sign}
                     <form class="loginForm" action=""
-                     method="POST" style="">
+                     method="POST" style="opacity: {formHolder.loginOpacity};">
                         Log In<br><br>
-                        <input type="text" placeholder="E-mail" id="email-log" name="email"><br>
-                        <input type={textType} placeholder="Password" id="password-log" name="password"><a on:click={() => {showPW = !showPW}} class="eye">idk</a><br>
-                        <a id="toSign" on:click={() => {sign = true;}}>Don't have an account? Sign up.</a><br>
+                        <input class="txt" type="text" placeholder="E-mail" id="email-log" name="email"><br>
+                        <input class="txt" type={textType} placeholder="Password" id="password-log" name="password"><a on:click={() => {showPW = !showPW; setType()}} class="eye">idk</a><br>
+                        <a id="toSign" on:click={() => {sign = true; formUpdate()}}>Don't have an account? Sign up.</a><br>
                         <input type="submit" name="submit-l" value="Log In">
+                        <span>or</span><br>
+                        <button class="googlelog" type="submit"><div class="gglbtn"><img class="google" src="google.svg" alt="idk"> Log In with Google</div></button>
                     </form>
                     {:else}
                     <form class="signupForm" action=""
-                     method="POST" style="">
+                     method="POST" style="opacity: {formHolder.signupOpacity};">
                         Sign Up <br>
-                        <input type="text" placeholder="Name" id="name-sign" name="name"><br>
-                        <input type="text" placeholder="E-mail" id="username-email" name="email"><br>
-                        <input type="password" placeholder="Password" id="password-sign" name="password"><br>
-                        <input type="password" placeholder="Re-type Password" id="repassword-sign" name="re-password"><br>
-                        <a id="toLog" on:click={() => {sign = false;}}>Have an account? Log in.</a><br>
+                        <input class="txt" type="text" placeholder="Name" id="name-sign" name="name"><br>
+                        <input class="txt" type="text" placeholder="E-mail" id="username-email" name="email"><br>
+                        <input class="txt" type="password" placeholder="Password" id="password-sign" name="password"><br>
+                        <input class="txt" type="password" placeholder="Re-type Password" id="repassword-sign" name="re-password"><br>
+                        <a id="toLog" on:click={() => {sign = false; formUpdate();}}>Have an account? Log in.</a><br>
                         <input type="submit" name="submit-s" value="Sign Up"><br>
-                        or<br>
-                        <button type="submit">Google</button>
+                        <span>or</span>
+                        <button class="googlelog" type="submit"><div class="gglbtn"><img class="google" src="google.svg" alt="idk"> Log In with Google</div></button>
                     </form>
                     {/if}
                 </div>

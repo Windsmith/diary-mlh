@@ -87,88 +87,113 @@ padding: 2vh 0 2vh 0.5em;
 background-color: rgba(0,0,0,0.2);
 position: absolute;
 width: 100%;
-height: 100vh;
+height: clamp(100vh, 100vh, auto);
 justify-content: center;
 }
 
 .popup {
-margin: 20vh;
-z-index: 50;
-background-color: rgb(37, 37, 37);
-border-radius: 20px;
-overflow: hidden;
-width: 50vw;
-box-shadow: 0px 0 10px 5px rgba(0, 0, 0, 0.3);
+    margin: 20vh auto;
+    z-index: 50;
+    background-color: rgb(37, 37, 37);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 50vw;
+    box-shadow: 0px 0 10px 5px rgba(0, 0, 0, 0.3);
 }
 
 .form-div {
-z-index: 100;
-width: 45%;
-background-color: rgb(79, 79, 79);
-height: 100%;
-transition: all 200ms ease-out;
+    z-index: 100;
+    width: 50%;
+    background-color: rgb(79, 79, 79);
+    height: 100%;
+    transition: all 200ms ease-out;
 }
 
 .form-div > form {
-font-size: 4vh;
+font-size: 2rem;
 width: 100%;
-padding: 1em 0 0 0;
-text-align: left;
-transition: opacity 200ms 200ms linear;
+padding: 1em 0 1em 0;
+text-align: center;
+transition: opacity 200ms 1s linear;
 }
 
-form > label {
-text-align: left;
-font-size: 3vh;
+form > input.txt{
+    border: 0;
+    font-size: 2vh;
+    padding: 5px;
+    width: 15em;
+    border-radius: 5px;
 }
 
-form > input {
-border: 0;
-font-size: 2vh;
-padding: 5px;
-width: 15em;
-border-radius: 5px;
+form > input[type="submit"] {
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+}
+
+form > input[type="submit"]:hover, form > input[type="submit"]:focus {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 #password-log {
-width: 13em;
-border-radius: 5px 0 0 5px;
+    width: 13em;
+    border-radius: 5px 0 0 5px;
 }
 
 .eye {
-background-color:#160505;
-width: 2em;
-border-radius: 0 5px 5px 0;
-font-size: 2vh;
-padding: 5px;
+    background-color:#160505;
+    width: 2em;
+    border-radius: 0 5px 5px 0;
+    font-size: 2vh;
+    padding: 5px;
 }
 
 form > a {
-font-size: 2vh;
-text-decoration: none;
-color: var(--colour2);
-cursor: pointer;
+    font-size: 2vh;
+    text-decoration: none;
+    color: var(--colour2);
+    cursor: pointer;
+    padding: 5px;
 }
 
-.grid-div {
-height: 100%;
-top: 50%;
-flex: 3;
-margin: auto 0;
-padding: auto 0;
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
+span {
+    display: block;
+    text-align: center;
+    padding: 0 0 0.5em 0;
 }
 
-.blurred {
-filter: blur(8px);
+span:before, span:after {
+    background-color: var(--colour3);
+    position: absolute;
+    content: '';
+    overflow: hidden;
+    height: 2px;
+    width: 8%;
+    margin-top: 0.85em;
 }
 
-.body {
-height: 88vh;
-background-color: var(--colour1);
-display: flex;
-flex-direction: row;
+span:before {
+    margin-left: -9%;
+    text-align: right;
+}
+
+span:after {
+    margin-left: 1%;
+    text-align: right;
+}
+
+.gglbtn {
+    padding: 0.5rem 1rem;
+}
+
+.google {
+    display: inline;
+    /* padding: 0.5rem; */
+    width: 2.5rem;
+}
+
+.googlelog {
+    background-color: white;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 10px;
 }

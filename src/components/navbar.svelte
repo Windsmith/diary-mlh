@@ -1,8 +1,18 @@
 <script>
-    import { text } from "svelte/internal";
+    import { userStore } from "../lib/firebase";
+
     import "../landingpage.css";
 
     let logged = false;
+    let displayName = "User"; // dummy
+    userStore.subscribe((val) => {
+        if (!val) {
+            logged = false;
+        } else {
+            logged = true;
+            displayName = val.displayName;
+        }
+    })
     let popup = false;
     let sign = false;
 

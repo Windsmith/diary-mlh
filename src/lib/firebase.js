@@ -3,7 +3,6 @@ import {
 	getAuth,
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
-	onAuthStateChanged,
 	signInWithPopup,
 	signInWithEmailAndPassword,
 	signOut
@@ -11,13 +10,17 @@ import {
 import {
 	doc,
 	setDoc,
+	getDoc,
 	getFirestore,
 	Timestamp,
 	updateDoc,
 	serverTimestamp,
-	deleteDoc
+	deleteDoc,
+	getDocs,
+	collection,
+	query,
+	orderBy
 } from 'firebase/firestore';
-import { readable } from 'svelte/store';
 import { DateTime } from 'luxon';
 
 const firebaseConfig = {
@@ -29,23 +32,10 @@ const firebaseConfig = {
 	appId: '1:178230792846:web:80219379f44b09151defdf',
 	measurementId: 'G-MXQC2V8ZZR'
 };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore();
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore();
 
-// set user store on auth state changes
-export const userStore = readable(null, (set) => {
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			set(user);
-		} else {
-			set(null);
-		}
-	});
-	return function stop() {
-		set(null);
-	};
-});
 
 export async function createUserEmailPw(name, email, pw) {
 	// Create a user on Firebase Auth with email and password, then add
@@ -123,4 +113,44 @@ export async function deleteEntry(date) {
 	}
 	const ref = doc(db, 'users', auth.currentUser.uid, 'entries', date);
 	await deleteDoc(ref);
+}
+
+export async function getEntry(date) {
+	if (!auth.currentUser) {
+		throw new Error('Cannot get post witout signing in first.');
+	}
+	const ref = doc(db, 'users', auth.currentUser.uid, 'entries', date);
+	const snap = await getDoc(ref);
+	if (!snap.exists()) {
+		return null;
+	} else {
+		return snap.data();
+	}
+}
+
+export async function getAllEntries() {
+	if (!auth.currentUser) {
+		throw new Error('Cannot get posts without signing in first.');
+	}
+	const q = query(
+		collection(db, 'users', auth.currentUser.uid, 'entries'),
+		orderBy('date', 'desc')
+	);
+	const snap = await getDocs(q);
+	let datemap = new Map();
+	snap.forEach((doc) => {
+		const date = doc.data().date;
+		const slug = DateTime.fromSeconds(date.seconds, { zone: 'utc' }).toISODate();
+		datemap[slug] = doc.data();
+	});
+	return datemap;
+}
+
+export async function getUsername() {
+	if (!auth.currentUser) {
+		throw new Error('User not signed in');
+	}
+	let ref = doc(db, "users", auth.currentUser.uid);
+	let data = await getDoc(ref);
+	return data.get("name");
 }

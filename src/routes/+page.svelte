@@ -24,7 +24,7 @@
 
 		<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.2);">
 			Made with love by
-			<a class="text-white" href="https://github.com/cs-gang">CS-Gang</a>
+			<a class="text-white underline" href="https://github.com/cs-gang">CS-Gang</a>
 		</div>
 	</footer>
 </div>

@@ -54,11 +54,11 @@
 </script>
 
 <div class="header" on:keydown={closeOnEsc}>
-    <div id="left">Diary</div>
+    <div id="left"><a href="/">Diary</a></div>
     <div id="right">
         {#if !logged}
-        <a id="signup" on:click={() => {sign = true; viewPopup();}} href="#">Sign Up</a>
         <a id="login" on:click={() => {sign = false; viewPopup();}} href="#">Log In</a>
+        <a id="signup" on:click={() => {sign = true; viewPopup();}} href="#">Sign Up</a>
         {:else}
         <div id="user">User</div>
         {/if}
@@ -71,10 +71,10 @@
                      method="POST" style="opacity: {formHolder.loginOpacity};">
                         Log In<br><br>
                         <input class="txt" type="text" placeholder="E-mail" id="email-log" name="email"><br>
-                        <input class="txt" type={textType} placeholder="Password" id="password-log" name="password"><a on:click={() => {showPW = !showPW; setType()}} class="eye">idk</a><br>
-                        <a id="toSign" on:click={() => {sign = true; formUpdate()}}>Don't have an account? Sign up.</a><br>
+                        <input class="txt" type={textType} placeholder="Password" id="password-log" name="password"><a on:click={() => {showPW = !showPW; setType()}} class="eye" href="#"><img class="eyeimg" src="eye.svg" alt="idk"></a><br>
+                        <a id="toSign" on:click={() => {sign = showPW = true; formUpdate()}}>Don't have an account? Sign up.</a><br>
                         <input type="submit" name="submit-l" value="Log In">
-                        <span>or</span><br>
+                        <span id="or">or</span><br>
                         <button class="googlelog" type="submit"><div class="gglbtn"><img class="google" src="google.svg" alt="idk"> Log In with Google</div></button>
                     </form>
                     {:else}
@@ -83,9 +83,9 @@
                         Sign Up <br>
                         <input class="txt" type="text" placeholder="Name" id="name-sign" name="name"><br>
                         <input class="txt" type="text" placeholder="E-mail" id="username-email" name="email"><br>
-                        <input class="txt" type="password" placeholder="Password" id="password-sign" name="password"><br>
+                        <input class="txt" type={textType} placeholder="Password" id="password-sign" name="password"><a on:click={() => {showPW = !showPW; setType()}} class="eye" href="#"><img class="eyeimg" src="eye.svg" alt="idk"></a><br>
                         <input class="txt" type="password" placeholder="Re-type Password" id="repassword-sign" name="re-password"><br>
-                        <a id="toLog" on:click={() => {sign = false; formUpdate();}}>Have an account? Log in.</a><br>
+                        <a id="toLog" on:click={() => {sign = false; showPW = true; formUpdate();}}>Have an account? Log in.</a><br>
                         <input type="submit" name="submit-s" value="Sign Up"><br>
                         <span>or</span>
                         <button class="googlelog" type="submit"><div class="gglbtn"><img class="google" src="google.svg" alt="idk"> Log In with Google</div></button>
@@ -97,13 +97,3 @@
         {/if}
     </div>
 </div>
-
-<!-- 
-
-<div class="nav h-6">
-    <div id="left">Diary</div>
-    <div class="float-right static" id="right">
-        <button type="button">Sign Up</button>
-        <button type="button">Log In</button>
-    </div>
-</div> -->

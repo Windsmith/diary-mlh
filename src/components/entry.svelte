@@ -1,5 +1,6 @@
 <script>
-	let curDate = new Date();
+	let curDate;
+	let info;
 </script>
 
 <a
@@ -12,6 +13,6 @@
 	<div
 		class="bg-nord3 p-1 text-nord4 text-xs italic px-6 sm:text-base sm:p-2 sm:px-8 md:px-5 md:text-base"
 	>
-		Today was a great day...
+		{info}
 	</div>
 </a>

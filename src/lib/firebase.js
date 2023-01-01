@@ -8,7 +8,15 @@ import {
 	signInWithEmailAndPassword,
 	signOut
 } from 'firebase/auth';
-import { doc, setDoc, getFirestore, Timestamp } from 'firebase/firestore';
+import {
+	doc,
+	setDoc,
+	getFirestore,
+	Timestamp,
+	updateDoc,
+	serverTimestamp,
+	deleteDoc
+} from 'firebase/firestore';
 import { readable } from 'svelte/store';
 import { DateTime } from 'luxon';
 
@@ -80,4 +88,39 @@ export async function signInGmail() {
 export async function signOutUser() {
 	// Signs out the current user.
 	await signOut(auth);
+}
+
+export async function createEntryForToday(content) {
+	// Create a new entry for the current time (in the USER's local time)
+	if (!auth.currentUser) {
+		throw new Error('Cannot create post without signing in first.');
+	}
+	const slug = DateTime.now().toISODate();
+	const ref = doc(db, 'users', auth.currentUser.uid, 'entries', slug);
+	await setDoc(ref, {
+		date: Timestamp.fromDate(DateTime.now().startOf('day').toJSDate()), //  in case we need to query on it later.
+		updatedAt: Timestamp.fromDate(DateTime.now().setZone('utc').toJSDate()),
+		content: content
+	});
+}
+
+export async function updateEntry(date, content) {
+	// Update entry for a specified date
+	if (!auth.currentUser) {
+		throw new Error('Cannot update post without signing in first.');
+	}
+	const ref = doc(db, 'users', auth.currentUser.uid, 'entries', date);
+	await updateDoc(ref, {
+		content: content,
+		updatedAt: serverTimestamp()
+	});
+}
+
+export async function deleteEntry(date) {
+	// Delete entry for a specified date.
+	if (!auth.currentUser) {
+		throw new Error('Cannot delete post without signing in first.');
+	}
+	const ref = doc(db, 'users', auth.currentUser.uid, 'entries', date);
+	await deleteDoc(ref);
 }

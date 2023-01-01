@@ -1,8 +1,6 @@
 <script>
     import { userStore } from "../lib/firebase";
 
-    import "../landingpage.css";
-
     let logged = false;
     let displayName = "User"; // dummy
     userStore.subscribe((val) => {

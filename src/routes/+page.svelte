@@ -6,13 +6,9 @@
 	<Navbar />
 
 	<div class="flex flex-row justify-around p-10">
-		<div>
-			<img alt="GIF" />
-			<div class="drop-shadow p-4 italic text-xs">Have you ever</div>
-		</div>
-		<div>
-			<img alt="GIF" />
-			<div class="drop-shadow p-4  italic text-xs">Have you ever</div>
+		<div class="drop-shadow p-4 text-4xl px-20">
+			Have you ever wanted to keep track of your life but a paper book was too much to handle? <br
+			/> <br /> With our cloud based diary, you'll reap the benefits of keeping a diary without the hassle!
 		</div>
 	</div>
 

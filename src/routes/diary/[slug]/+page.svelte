@@ -16,7 +16,9 @@
 </script>
 
 <div class="h-screen bg-nord0 p-4 sm:p-8 md:p-16">
-	<div class="bg-nord4 max-w-fit rounded-lg p-2 sm:text-xl md:text-2xl">1 January 2023</div>
+	<div class="bg-nord4 max-w-fit text-nord0 rounded-lg p-2 sm:text-xl md:text-2xl">
+		1 January 2023
+	</div>
 	<div use:editor class="border-x-2 border-x-nord2 rounded mt-6" />
 </div>
 

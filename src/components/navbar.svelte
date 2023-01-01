@@ -18,6 +18,7 @@
     let userDetails = false;
 	let popup = false;
 	let sign = false;
+    let fetching = false;
 
     let sentinel = false;
 
@@ -74,7 +75,7 @@
 
 <div class="header" on:keydown={closeOnEsc}>
 	<div id="left"><a href="/" class="text-nord4">Diary</a></div>
-	<div id="right" on:m>
+	<div id="right">
 		{#if !logged}
 			<a
 				id="login"
@@ -93,17 +94,17 @@
 				href="#">Sign Up</a>
 		{:else}
 			{#await fetchUsername()}
-				<div id="user" on:mouseenter={() =>fetching..</div>
-			 {userDetails = true}}
-         on:mouseleave|capture={() => {if (sentinel) {userDetails = false}}}>{:then uname}
-				<div id="user">{uname}</div>
-			{/await}
-        {#if userDetails}
-            <div id="userDet" on:mouseenter|capture={() => {sentinel = true}} on:mouseleave={() => userDetails = sentinel = false}>
-                <a href="#">Settings</a>
-                <a on:click={() => {logged = false}} href="#">Sign Out</a>
-            </div>
-        {/if}
+				<div id="user">fetching..</div>
+            {:then uname}
+                <div id="user" on:mouseenter={() => userDetails = true} 
+                 on:mouseleave|capture={() => {if (sentinel) {userDetails = false}}}>{uname}</div>
+            {/await}
+            {#if userDetails}
+                <div id="userDet" on:mouseenter|capture={() => {sentinel = true}} on:mouseleave={() => userDetails = sentinel = false}>
+                    <a href="#">Settings</a>
+                    <a on:click={() => {logged = false}} href="#">Sign Out</a>
+                </div>
+            {/if}
 		{/if}
 		{#if popup}
 			<div
@@ -253,6 +254,12 @@
 		--nord13: #ebcb8b;
 		--nord14: #a3be8c;
 		--nord15: #db7dca;
+
+        color: var(--nord12);
+        background: var(--nord13);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+
 	}
 
 	body {
@@ -264,25 +271,6 @@
 		font-family: 'Outfit', sans-serif;
 		font-weight: 500;
 	}
-        --nord4: #d8dee9;
-        --nord5: #e5e9f0;
-        --nord6: #eceff4;
-        
-        --nord7: #8fbcbb;
-        --nord8: #88c0d0;
-        --nord9: #81a1c1;
-        --nord10: #5e81ac;
-        
-        --nord11: #bf616a;
-        --nord12: #e48163;
-        --nord13: #ebcb8b;
-        --nord14: #a3be8c;
-        --nord15: #db7dca;
-        color: var(--nord12);
-        background: var(--nord13);
-        font-family: 'Outfit', sans-serif;
-        font-weight: 500;
-    }
     
     body {
         margin: 0;

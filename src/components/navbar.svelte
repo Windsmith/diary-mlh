@@ -11,8 +11,11 @@
             displayName = val.displayName;
         }
     })
+    let userDetails = false;
     let popup = false;
     let sign = false;
+
+    let sentinel = false;
 
     let showPW = false;
     let textType = "password";
@@ -60,12 +63,19 @@
 
 <div class="header" on:keydown={closeOnEsc}>
     <div id="left"><a href="/">Diary</a></div>
-    <div id="right">
+    <div id="right" on:m>
         {#if !logged}
         <a id="login" on:click={() => {sign = false; viewPopup();}} href="#">Log In</a>
         <a id="signup" on:click={() => {sign = true; viewPopup();}} href="#">Sign Up</a>
         {:else}
-        <div id="user">{displayName}</div>
+        <div id="user" on:mouseenter={() => {userDetails = true}}
+         on:mouseleave|capture={() => {if (sentinel) {userDetails = false}}}>{displayName}</div>
+        {#if userDetails}
+            <div id="userDet" on:mouseenter|capture={() => {sentinel = true}} on:mouseleave={() => userDetails = sentinel = false}>
+                <a href="#">Settings</a>
+                <a on:click={() => {logged = false}} href="#">Sign Out</a>
+            </div>
+        {/if}
         {/if}
         {#if popup}
         <div on:click={() => {popup = false}} class="loginsignup">
@@ -132,16 +142,16 @@
         --nord13: #ebcb8b;
         --nord14: #a3be8c;
         --nord15: #db7dca;
+        color: var(--nord12);
+        background: var(--nord13);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
     }
     
     body {
         margin: 0;
         padding: 0;
         height: 100%;
-        color: var(--nord12);
-        background: var(--nord13);
-        font-family: 'Outfit', sans-serif;
-        font-weight: 500;
     }
 
     .header {
@@ -151,11 +161,12 @@
         background-color: var(--nord0);
         display: flex;
         justify-content: space-between;
+        z-index: 5;
     }
 
     .header > div {
         width: 50%;
-        z-index: 5;
+        /* z-index: 5; */
     }
 
     #right {
@@ -197,6 +208,31 @@
 
     #user:hover {
         background-color: rgba(0,0,0,0.1);
+    }
+
+    #userDet {
+        position: absolute;
+        background: var(--nord6);
+        transform: translateY(11.9vh);
+        padding-top: 0.1vh;
+        z-index: 1;
+        font-size: 3vh;
+        width: 6em;
+        text-align: center;
+        border-radius: 0 0 10px 10px;
+    }
+
+    /* #userDet {
+        padding: 0.5rem;
+    } */
+
+    #userDet > a {
+        padding: 0.5rem;
+        display: block;
+        width: 100%;
+    }
+    #userDet > a:hover {
+        background: rgba(0, 0, 0, 0.1);
     }
 
     #left {
